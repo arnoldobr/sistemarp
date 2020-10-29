@@ -1,0 +1,11 @@
+{
+    "require": {
+        "twbs/bootstrap": "4.5.3"
+    },
+    "scripts":{
+        "post-update-command":[
+            "rm -rf libs/twbs",
+            "cp -R vendor/twbs/bootstrap/dist libs/twbs"
+        ]
+    }
+}
