@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c1aba2d744b77acb3658e5009253b4fb3db40146',
+    'reference' => '41c06cb31a52ff936706b90ff676b04960e6ddc9',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,43 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c1aba2d744b77acb3658e5009253b4fb3db40146',
+      'reference' => '41c06cb31a52ff936706b90ff676b04960e6ddc9',
+    ),
+    'components/font-awesome' => 
+    array (
+      'pretty_version' => '5.15.1',
+      'version' => '5.15.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6943708effe6d823d40255bcdbe9ee021312c880',
+    ),
+    'components/jquery' => 
+    array (
+      'pretty_version' => '3.5.1',
+      'version' => '3.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b33e8f0f9a1cb2ae390cf05d766a900b53d2125b',
+    ),
+    'kint-php/kint' => 
+    array (
+      'pretty_version' => '3.3',
+      'version' => '3.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '335ac1bcaf04d87df70d8aa51e8887ba2c6d203b',
+    ),
+    'smarty/smarty' => 
+    array (
+      'pretty_version' => 'v3.1.36',
+      'version' => '3.1.36.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fd148f7ade295014fff77f89ee3d5b20d9d55451',
     ),
     'twbs/bootstrap' => 
     array (

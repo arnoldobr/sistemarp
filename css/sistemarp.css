@@ -1,0 +1,15 @@
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+footer {
+  bottom: 0;
+  height: 50px; /* el que haga falta para el pie */
+  position: absolute;
+  width: 100%;
+}
+
+main {
+  margin-bottom: 70px;
+}

@@ -1,11 +1,23 @@
 {
     "require": {
-        "twbs/bootstrap": "4.5.3"
+        "twbs/bootstrap": "4.5.3",
+        "smarty/smarty": "~3.1",
+        "kint-php/kint": "^3.3",
+        "components/jquery": "^3.5",
+        "components/font-awesome": "^5.15"
     },
     "scripts":{
         "post-update-command":[
             "rm -rf libs/twbs",
-            "cp -R vendor/twbs/bootstrap/dist libs/twbs"
+            "cp -R vendor/twbs/bootstrap/dist libs/twbs",
+
+            "rm -rf libs/smarty",
+            "cp -R vendor/smarty/libs libs/smarty libs/smarty",
+
+            "rm -f libs/jquery/jquery.min.*",
+            "cp vendor/components/jquery/jquery.min.* libs/jquery/"
+            
+
         ]
     }
 }
