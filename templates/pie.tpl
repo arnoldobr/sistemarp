@@ -1,7 +1,7 @@
 {* Smarty *}
-		<footer class="footer mt-auto py-3 blockquote-footer">
+		<footer class="footer text-center bg-dark">
 		  <div class="container">
-		    <span class="text-muted">Place sticky footer content here.</span>
+		    <span class="text-muted">:::...&copy; LRDTAB 2020...:::</span>
 		  </div>
 		</footer>
 		<script src="libs/jquery/jquery.min.js"></script>

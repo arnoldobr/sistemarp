@@ -1,15 +1,17 @@
 html {
+  --footerh: 2rem; /* el que haga falta para el pie */
   min-height: 100%;
   position: relative;
 }
 
 footer {
   bottom: 0;
-  height: 50px; /* el que haga falta para el pie */
+  height: var(--footerh);
   position: absolute;
   width: 100%;
+  line-height: var(--footerh);
 }
 
 main {
-  margin-bottom: 70px;
+  margin-bottom: calc(10px + var(--footerh));
 }
