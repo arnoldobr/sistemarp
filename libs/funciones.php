@@ -1,6 +1,45 @@
 <?php
 #--Funciones del Sistema---#
+function f_input($name, $icono, $placeholder, $type = 'text', $required = NULL){
+	$required = is_null($required) ? "" : "required";
 
+	$salida = <<<LRDTAB
+	<div class="input-group">
+		<div class="input-group-prepend">
+			<span class="input-group-text">
+				<i class="fa fa-{$icono}"></i>
+			</span>
+		</div>
+		<input type="{$type}" class="form-control" name="{$name}" id="{$name}"
+			placeholder="{$placeholder}" {$required}>
+	</div>
+LRDTAB;
+	return $salida;
+}
+
+function f_select($name, $icono, $placeholder, $opciones, $required = NULL){
+	$required = is_null($required) ? "" : "required";
+	$opc = '';
+	foreach ($opciones as $clave => $valor) {
+		$opc .= "<option value=\"{$clave}\">{$valor}</option>";
+	};
+	$salida = <<<LRDTAB
+	<div class="input-group">
+		<div class="input-group-prepend">
+			<span class="input-group-text">
+				<i class="fa fa-{$icono}"></i>
+			</span>
+		</div>
+			<select class="form-control" name="{$name}" id="{$name}"  {$required}>
+				<option value="">{$placeholder}</option>
+				{$opc}
+			</select>
+	</div>
+LRDTAB;
+	return $salida;	
+}
+
+###################################33
 function verificar($autorizados)
 {	if (!isset($_SESSION['u'])) {
 	ir('index.php');

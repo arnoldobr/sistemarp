@@ -21,3 +21,23 @@ main {
   padding: 15px;
   margin: 0 auto;
 }
+
+.w-800 {
+  max-width: 800px;
+}
+
+:required {
+  border: solid 1px #555;
+}
+
+.input-group-text {
+  width: 3rem;
+  text-align: center;
+}
+
+.t1 {
+  color: #424242;
+  line-height: 2.5;
+  font-weight: bolder;
+  font-size: 1.1rem
+}
