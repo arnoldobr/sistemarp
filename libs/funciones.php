@@ -1,4 +1,10 @@
 <?php
+
+function ir($destino){
+  header("Location: $destino");
+  exit();
+}
+
 #--Funciones del Sistema---#
 function f_input($name, $icono, $placeholder, $type = 'text', $required = NULL){
 	$required = is_null($required) ? "" : "required";

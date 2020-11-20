@@ -16,8 +16,9 @@
       <li class="nav-item"><a class="nav-link" href="clientes.php">{"user-tag"|fa} Clientes</a></li>
       <li class="nav-item"><a class="nav-link" href="proveedores.php">{"badge"|fa} Proveedores</a></li>
       <li class="nav-item"><a class="nav-link" href="respaldo.php">{"database"|fa} Respaldo</a></li>
-      <li class="nav-item"><a class="nav-link" href="usuario.php">{"user"|fa} Usuarios</a></li>
+      <li class="nav-item"><a class="nav-link" href="usuarios.php">{"user"|fa} Usuarios</a></li>
       <li class="nav-item"><a class="nav-link" href="index.php">{"sign-out-alt"|fa} Salir</a></li>
     </ul>
+    
   </div>
 </nav>

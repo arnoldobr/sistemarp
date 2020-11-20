@@ -12,30 +12,7 @@
 			</div>
 			<div class="col t1 text-right">{"list"|fa}</div>
 		</div>
-<table class="table table-responsive">
-			<thead>
-				<tr>
-					<th>Cód.</th>
-					<th>Nombre</th>
-					<th>Und.</th>
-					<th>Exist.</th>
-					<th>P.V. (Bs.)</th>
-					<th>{"exclamation-triangle"|fa}</th>
-				</tr>
-			</thead>
-			<tbody>
-{section name=i loop=$d}
-				<tr>
-					<td>{$d[i].id}</td>
-					<td>{$d[i].nombre}</td>
-					<td>{$d[i].unidad}</td>
-					<td>{$d[i].cant}</td>
-					<td>{$d[i].p_venta}</td>
-					<td>{$d[i].min}</td>
-				</tr>
-{/section}
-			</tbody>
-		</table>		
+ggggggg
 
 	</div>
 </main>

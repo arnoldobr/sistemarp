@@ -1,5 +1,5 @@
 html {
-  --footerh: 2rem; /* el que haga falta para el pie */
+  --footerh: 2rem;    /* el que haga falta para el pie */
   min-height: 100%;
   position: relative;
 }
@@ -13,7 +13,7 @@ footer {
 }
 
 main {
-  margin-bottom: calc(10px + var(--footerh));
+  margin-bottom: calc(60px + var(--footerh));
 }
 
 .tasa {
@@ -40,4 +40,31 @@ main {
   line-height: 2.5;
   font-weight: bolder;
   font-size: 1.1rem
+}
+
+@media screen and (max-width:600px) {
+  table thead {
+    display: none;
+  }
+
+  table td {
+    display: flex;
+  }
+
+  table td::before {
+    content: attr(label);
+    font-weight: bold;
+  }
+
+}
+
+option {
+  text-align: center;
+}
+
+.flotante {
+  display: scroll;
+  position: fixed;
+  bottom: calc(10px + var(--footerh));
+  right: 2px;
 }

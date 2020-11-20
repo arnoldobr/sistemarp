@@ -112,7 +112,7 @@ function sql2value($sql) {
     global $m;
     if ( !$res=$m->query($sql) ) {
         echo sqlerror( $sql,$m->error );
-        exit;
+        return '';
     }
     $p=$res->fetch_array(MYSQLI_NUM);
     return $p[0];
@@ -145,30 +145,46 @@ function sql2ids($sql) {
 }
 
 
+
+
+
+
+
+
+
 ########################################### Funciones de la base de datos
-function bd_usuarios_hash($login)
-{
-    $sql= "
+
+/**
+ * [bd_usuarios_hash description]
+ * @param  [type] $id [description]
+ * @return [type]     [description]
+ *  LRDTAB 2020
+ */
+function bd_usuarios_hash($id){
+    return sql2value("
         SELECT clave
-        FROM USUARIOS
-        WHERE id LIKE '{$login}' or correo LIKE '{$login}'";
-    
-    return sql2value($sql);
+        FROM usuarios
+        WHERE id LIKE '{$id}'or email LIKE '{$id}'
+        LIMIT 1;
+        ");
 }
-function bd_usuarios_hash_temporal($login)
-{
-    $sql= "
-        SELECT clave_temporal, plazo
-        FROM USUARIOS
-        WHERE id LIKE '{$login}' or correo LIKE '{$login}'";
-    
-    return sql2row($sql);
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 function bd_usuarios_contar(){
-    return sql2value("SELECT COUNT(*) FROM USUARIOS");
+    return sql2value("SELECT COUNT(*) FROM usuarios");
 }
 
 function bd_nucleos_contar(){
@@ -186,19 +202,20 @@ function bd_personas_contar($criterio='1')
 }
 
 
+
 function bd_usuarios_datos($login=NULL)
 {
     if ($login!=NULL) {
         $sql="
             SELECT *
-            FROM USUARIOS
+            FROM usuarios
             WHERE id LIKE '{$login}'or correo LIKE '{$login}'";
         $salida = sql2row($sql);
     } else {
         $sql="
             SELECT *
-            FROM USUARIOS
-            ORDER BY USUARIOS.id ASC";
+            FROM usuarios
+            ORDER BY usuarios.id ASC";
         $salida = sql2array($sql);
     }
     return $salida;
@@ -221,7 +238,7 @@ function paginar($totalpaginas,$rango,$pagina_actual=1)
 function bd_usuarios_datos2($inicio, $cantidad, $orden='id', $nivel)
 {
 return sql2array("SELECT id, correo
-    FROM USUARIOS
+    FROM usuarios
     ORDER BY $orden ASC#
     LIMIT $inicio,$cantidad
     ");
@@ -235,7 +252,7 @@ foreach ($miscampos as $key => $value)
 }
 
 $condicion = implode(' OR ', $miscampos);
-return sql2array("SELECT id, correo FROM USUARIOS
+return sql2array("SELECT id, correo FROM usuarios
     WHERE ($condicion )
         LIMIT $cantidad
     ");
@@ -245,7 +262,7 @@ return sql2array("SELECT id, correo FROM USUARIOS
 function bd_usuarios_eliminar($id)
 {
     $sql = "
-        DELETE FROM USUARIOS
+        DELETE FROM usuarios
         WHERE id = '{$id}'
         ";
     sql($sql);
@@ -256,7 +273,7 @@ function bd_usuarios_eliminar($id)
 function bd_usuarios_modificar($usuario)
 {
     $sql = "
-        UPDATE USUARIOS SET
+        UPDATE usuarios SET
             id = '{$usuario['id_new']}',
             correo = '{$usuario['correo']}'
         WHERE id = '{$usuario['id']}' 
@@ -271,7 +288,7 @@ function bd_usuarios_modificar_clave($d)
     $id = $d[0];
     $hash = $d[1];
     $sql = "
-        UPDATE USUARIOS SET
+        UPDATE usuarios SET
             clave = '{$hash}'
         WHERE
             id = '{$id}'
@@ -424,7 +441,7 @@ function contar_valores($a,$buscado)
 
 function bd_usuarios_registrar($usuario,$n_roles,$roles){   
     $sql1="
-        INSERT INTO USUARIOS(id, clave, correo)
+        INSERT INTO usuarios(id, clave, correo)
         VALUES ('{$usuario['id']}','{$usuario['hash']}','{$usuario['correo']}')
         ";
     sql($sql1);
@@ -444,7 +461,7 @@ function bd_usuarios_registrar($usuario,$n_roles,$roles){
         # code...
         $rol=$roles[$i];
         $sql="
-            INSERT INTO USUARIOS__ROLES(id_usuario, id_rol, id_persona)
+            INSERT INTO usuarios__ROLES(id_usuario, id_rol, id_persona)
             VALUES ('{$usuario['id']}','{$rol}','{$usuario['id']}')
         ";
         sql($sql);
@@ -458,7 +475,7 @@ function bd_usuarios_roles_datos($id){
 
     $sql="
             SELECT *
-            FROM USUARIOS__ROLES, ROLES 
+            FROM usuarios__ROLES, ROLES 
             WHERE id_usuario LIKE '{$id}' && id_rol = ROLES.id  ";
         $salida = sql2array($sql);
     return $salida;
@@ -471,14 +488,14 @@ function bd_eliminar_rol_usuario($id_usuario,$id_rol=NULL){
     if ($id_rol != NULL) {
         #un solo rol
         $sql = "
-            DELETE FROM USUARIOS__ROLES
+            DELETE FROM usuarios__ROLES
             WHERE id_usuario = '{$id_usuario}' && id_rol = '{$id_rol}'
             ";
         sql($sql);
      }else{
         # todos los roles del usuario
          $sql = "
-            DELETE FROM USUARIOS__ROLES
+            DELETE FROM usuarios__ROLES
             WHERE id_usuario = '{$id_usuario}'
             ";
         sql($sql);
@@ -512,7 +529,7 @@ function bd_crear_temp($correo){
     $diaSiguiente = time() + (1 * 24 * 60 * 60);
     $plazo=date('Y-m-d-H-i', $diaSiguiente);
     $sql = "
-        UPDATE USUARIOS SET
+        UPDATE usuarios SET
         clave_temporal = '{$hash}',
         plazo = '{$plazo}'
         WHERE correo = '{$correo}' 
