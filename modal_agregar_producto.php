@@ -1,6 +1,8 @@
 <?php
 include_once 'inicializacion.php';
 
+verifica_nivel(['ADMIN', 'USUARIO']);
+
 
 $unidades = [
 	"pza" => "Pieza (pza)",

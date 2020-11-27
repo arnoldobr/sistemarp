@@ -1,5 +1,7 @@
 <?php
 include_once 'inicializacion.php';
 
-$s->display('respaldo.tpl');  
+verifica_nivel(['ADMIN', 'USUARIO']);
+
+$s->display('respaldo.tpl');
 

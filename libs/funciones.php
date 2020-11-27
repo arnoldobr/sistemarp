@@ -1,5 +1,12 @@
 <?php
 
+function verifica_nivel($niveles){
+	if ( !isset($_SESSION['usuario']) ) ir('index.php');
+	if ( !in_array($_SESSION['usuario']['nivel'], $niveles) )
+		ir($_SERVER['HTTP_REFERER']);
+}
+
+
 function ir($destino){
   header("Location: $destino");
   exit();

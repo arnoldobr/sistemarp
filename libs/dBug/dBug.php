@@ -516,7 +516,7 @@ class dBug {
 				table.dBug_resource td { background-color:#FFFFFF; }
 				table.dBug_resource td.dBug_resourceHeader { background-color:#AA66AA; }
 				table.dBug_resource td.dBug_resourceKey { background-color:#FFDDFF; }
-				
+
 				/* xml */
 				table.dBug_xml { background-color:#888888; }
 				table.dBug_xml td { background-color:#FFFFFF; }
@@ -538,4 +538,3 @@ function vq($a){
    new dBug($a);
    die('LRDTAB.');
 }
-

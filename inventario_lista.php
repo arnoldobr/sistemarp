@@ -1,5 +1,7 @@
 <?php
 include_once 'inicializacion.php';
 
-$s->display('inventario_lista.tpl');  
+verifica_nivel(['ADMIN', 'USUARIO']);
+
+$s->display('inventario_lista.tpl');
 

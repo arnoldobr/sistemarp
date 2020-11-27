@@ -1,14 +1,16 @@
 <?php
 include_once 'inicializacion.php';
-# Procesando el login del sistema
 
-//v(bd_usuarios_hash('arnoldobr'));
+$entrada=false;
+if ( password_verify( $_POST['clave'], bd_usuarios_hash( $_POST['login'] ) ) ){
+	$entrada=true;
+ }
 
-// if (password_verify(usuario, hash)) {
-// 	# code...
-// } else {
-// 	# code...
-// }
+if ($entrada) {
+	$_SESSION['usuario'] = bd_usuarios_datos($_POST['login']);
+	ir("inicio.php");
+} else {
+	$_SESSION['usuario'] = NULL;
+	ir("index.php");
+}
 
-
-ir("inicio.php");

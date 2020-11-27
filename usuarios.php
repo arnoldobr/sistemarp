@@ -1,5 +1,6 @@
 <?php
 include_once 'inicializacion.php';
 
-$s->display('usuarios.tpl');  
+verifica_nivel(['ADMIN', 'USUARIO']);
 
+$s->display('usuarios.tpl');

@@ -115,7 +115,11 @@ function sql2value($sql) {
         return '';
     }
     $p=$res->fetch_array(MYSQLI_NUM);
-    return $p[0];
+    if ($p!=NULL) {
+        return $p[0];
+    } else {
+        return '';
+    }
 }
 
 function sql2options($sql) {
@@ -146,12 +150,6 @@ function sql2ids($sql) {
 
 
 
-
-
-
-
-
-
 ########################################### Funciones de la base de datos
 
 /**
@@ -168,6 +166,40 @@ function bd_usuarios_hash($id){
         LIMIT 1;
         ");
 }
+
+/**
+ * Devuelve un array con los datos del usuario
+ * @param  [string] $login [Login.]
+ * @return [array]        [Datos del usuario]
+ */
+function bd_usuarios_datos($login) {
+    $sql="
+        SELECT id, nombre, nivel, email
+        FROM usuarios
+        WHERE id LIKE '{$login}'or email LIKE '{$login}'";
+    $salida = sql2row($sql);
+    return $salida;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -187,39 +219,8 @@ function bd_usuarios_contar(){
     return sql2value("SELECT COUNT(*) FROM usuarios");
 }
 
-function bd_nucleos_contar(){
-    return sql2value("SELECT COUNT(*) FROM NUCLEOS");
-}
-
-function bd_pnf_contar(){
-    return sql2value("SELECT COUNT(*) FROM PNF");
-}
 
 
-function bd_personas_contar($criterio='1')
-{
-
-}
-
-
-
-function bd_usuarios_datos($login=NULL)
-{
-    if ($login!=NULL) {
-        $sql="
-            SELECT *
-            FROM usuarios
-            WHERE id LIKE '{$login}'or correo LIKE '{$login}'";
-        $salida = sql2row($sql);
-    } else {
-        $sql="
-            SELECT *
-            FROM usuarios
-            ORDER BY usuarios.id ASC";
-        $salida = sql2array($sql);
-    }
-    return $salida;
-}
 
 function paginar($totalpaginas,$rango,$pagina_actual=1)
     {
@@ -297,243 +298,3 @@ function bd_usuarios_modificar_clave($d)
     return $id;
 }
 
-#####Funciones para los 
-
-
-
-function bd_nucleos_datos($id=NULL)
-{
-    if ($id!=NULL) {
-        $sql="
-            SELECT *
-            FROM NUCLEOS
-            WHERE id LIKE '{$id}'";
-        $salida = sql2row($sql);
-    } else {
-        $sql="
-            SELECT *
-            FROM NUCLEOS
-            ";
-        $salida = sql2array($sql);
-    }
-    return $salida;
-}
-
-function bd_nucleos_agregar($nucleos)
-{
-    $sql="
-        INSERT INTO NUCLEOS (nombre_largo, nombre_corto)
-        VALUES ('{$nucleos['nombre_largo']}','{$nucleos['nombre_corto']}')";
-    sql($sql);
-    return "{$nucleos['id']}";
-
-}
-
-function bd_nucleos_modicar($nucleos)
-{
-    $sql = "
-        UPDATE NUCLEOS SET
-            id = '{$nucleos['id']}',
-            nombre_largo = '{$nucleos['nombre_largo']}',
-            nombre_corto = '{$nucleos['nombre_corto']}'
-        WHERE
-            id = '{$nucleos['id']}'
-    ";
-    sql($sql);
-    return $nombre;
-}
-
-function bd_nucleos_eliminar($id)
-{
-    $sql = "
-        DELETE FROM NUCLEOS
-        WHERE id = '{$id['id']}'
-        ";
-    sql($sql);
-    return $nucleos['id'];
-}
-
-###########################Funciones PNF
-
-function bd_pnf_datos($id=NULL)
-{
-    if ($id!=NULL) {
-        $sql="
-            SELECT *
-            FROM PNF
-            WHERE id LIKE '{$id}'";
-        $salida = sql2row($sql);
-    } else {
-        $sql="
-            SELECT *
-            FROM PNF
-            ";
-        $salida = sql2array($sql);
-    }
-    return $salida;
-}
-
-
-function bd_pnf_agregar($pnf)
-{
-    $sql="
-        INSERT INTO PNF (nombre_largo, nombre_corto)
-        VALUES ('{$pnf['nombre_largo']}','{$pnf['nombre_corto']}')";
-    sql($sql);
-    return "{$pnf['id']}";
-
-}
-
-function bd_pnf_eliminar($id)
-{
-    $sql = "
-        DELETE FROM PNF
-        WHERE id = '{$id['id']}'
-        ";
-    sql($sql);
-    return $pnf['id'];
-}
-
-function bd_pnf_modicar($pnf)
-{
-    $sql = "
-        UPDATE PNF SET
-            id = '{$pnf['id']}',
-            nombre_largo = '{$pnf['nombre_largo']}',
-            nombre_corto = '{$pnf['nombre_corto']}'
-        WHERE
-            id = '{$pnf['id']}'
-    ";
-    sql($sql);
-    return $nombre;
-}
-
-##############################
-
-function bd_roles_datos($login=NULL)
-{
-    if ($login!=NULL) {
-        $sql="
-            SELECT *
-            FROM ROLES
-            WHERE id LIKE '{$login}'";
-        $salida = sql2row($sql);
-    } else {
-        $sql="
-            SELECT *
-            FROM ROLES
-            ";
-        $salida = sql2array($sql);
-    }
-    return $salida;
-}
-
-function contar_valores($a,$buscado)
- {
-  if(!is_array($a)) return NULL;
-  $i=0;
-  foreach($a as $v)
-   if($buscado===$v)
-    $i++;
-  return $i;
- }
-
-
-function bd_usuarios_registrar($usuario,$n_roles,$roles){   
-    $sql1="
-        INSERT INTO usuarios(id, clave, correo)
-        VALUES ('{$usuario['id']}','{$usuario['hash']}','{$usuario['correo']}')
-        ";
-    sql($sql1);
-
-    $consulta="SELECT id FROM PERSONAS WHERE id ='{$usuario['id']}'";
-    $verificar= sql($consulta);
-
-    if ($verificar < 1){
-        $sql2="
-            INSERT INTO PERSONAS(id)
-            VALUES('{$usuario['id']}');
-             ";
-    sql($sql2);
-    }
-
-    for ($i=0; $i <$n_roles ; $i++) { 
-        # code...
-        $rol=$roles[$i];
-        $sql="
-            INSERT INTO usuarios__ROLES(id_usuario, id_rol, id_persona)
-            VALUES ('{$usuario['id']}','{$rol}','{$usuario['id']}')
-        ";
-        sql($sql);
-    }
-    return "{$usuario['id']}";
-
-}
-
-
-function bd_usuarios_roles_datos($id){
-
-    $sql="
-            SELECT *
-            FROM usuarios__ROLES, ROLES 
-            WHERE id_usuario LIKE '{$id}' && id_rol = ROLES.id  ";
-        $salida = sql2array($sql);
-    return $salida;
-}
-
-
-
-
-function bd_eliminar_rol_usuario($id_usuario,$id_rol=NULL){ 
-    if ($id_rol != NULL) {
-        #un solo rol
-        $sql = "
-            DELETE FROM usuarios__ROLES
-            WHERE id_usuario = '{$id_usuario}' && id_rol = '{$id_rol}'
-            ";
-        sql($sql);
-     }else{
-        # todos los roles del usuario
-         $sql = "
-            DELETE FROM usuarios__ROLES
-            WHERE id_usuario = '{$id_usuario}'
-            ";
-        sql($sql);
-     }
-
-}
-
-
-function bd_personas_datos($login=NULL)
-{
-    if ($login!=NULL){
-        $sql="
-                SELECT *
-                FROM  PERSONAS 
-                WHERE id LIKE '{$login}'";
-            $salida = sql2array($sql);
-    }else
-    {
-        $sql="
-            SELECT *
-            FROM PERSONAS
-            ";
-        $salida = sql2array($sql);
-    }
-    return $salida;
-}
-
-function bd_crear_temp($correo){
-    $n_aleatorio=rand(1000,999999);
-    $hash=password_hash($n_aleatorio, PASSWORD_DEFAULT);
-    $diaSiguiente = time() + (1 * 24 * 60 * 60);
-    $plazo=date('Y-m-d-H-i', $diaSiguiente);
-    $sql = "
-        UPDATE usuarios SET
-        clave_temporal = '{$hash}',
-        plazo = '{$plazo}'
-        WHERE correo = '{$correo}' 
-        ";
-    sql($sql);
-    return $n_aleatorio;
-}
