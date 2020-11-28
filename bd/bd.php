@@ -40,7 +40,7 @@ function limpiar_texto($texto,$tipo,$regex=NULL)
     }  else {
         $patron = $exprs[$tipo];
     }
-    
+
     preg_match_all('/'.$patron.'/', $texto, $salida);
     $texto =trim ( join ($salida[0] ));
 
@@ -182,26 +182,56 @@ function bd_usuarios_datos($login) {
 }
 
 
+function bd_notas_sin_vencer(){
+    $sql = "
+        SELECT id, texto, f_creado
+        FROM notas
+        WHERE f_cancelado IS NULL
+        ORDER BY f_creado DESC;
+    ";
+    return sql2array($sql);
+}
 
+function bd_notas_cancelar($id, $usuario){
+    $sql ="
+        UPDATE notas
+        SET
+            f_cancelado = NOW(), usuario_id = '{$usuario}'
+        WHERE
+            id = $id;
+    ";
+    sql($sql);
+}
 
+function bd_tasas_datos($n=10) {
+    $sql = "
+        SELECT
+            tasa, f_tasa
+        FROM
+            tasas
+        ORDER BY
+            f_tasa DESC
+        LIMIT
+            {$n}
+    ";
+    return sql2array($sql);
+}
 
+function bd_tasas_agregar($monto) {
+    if ($monto > 0) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $sql = "
+        INSERT INTO
+            tasas (id,tasa,f_tasa)
+        VALUES (NULL, '$monto', current_timestamp());
+    ";
+    return sql($sql);
+    }
+    else
+    {
+        return -1;
+    }
+}
 
 
 
@@ -277,7 +307,7 @@ function bd_usuarios_modificar($usuario)
         UPDATE usuarios SET
             id = '{$usuario['id_new']}',
             correo = '{$usuario['correo']}'
-        WHERE id = '{$usuario['id']}' 
+        WHERE id = '{$usuario['id']}'
             ";
     sql($sql);
     return $d['id'];
