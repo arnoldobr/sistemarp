@@ -3,33 +3,6 @@ include_once 'inicializacion.php';
 
 verifica_nivel(['ADMIN', 'USUARIO']);
 
-$d=[
-	[
-		'id'=>'PK01',
-		'nombre'=>'Pendrive 18Gb',
-		'unidad'=>'pza',
-		'cant'=>'17',
-		'p_venta'=>'7.2',
-		'min'=>'5'
-	],
-	[
-		'id'=>'PK05',
-		'nombre'=>'Disco duro portatil',
-		'unidad'=>'pza',
-		'cant'=>'2',
-		'p_venta'=>'25.99',
-		'min'=>'2'
-	],
-	[
-		'id'=>'PER01',
-		'nombre'=>'Perfume de flores 225ml',
-		'unidad'=>'pza',
-		'cant'=>'3',
-		'p_venta'=>'17',
-		'min'=>'4'
-	],
-];
-
-$s->assign('d',$d);
+$s->assign('d', bd_productos_datos() );
+$s->assign('categ', bd_categorias_datos() );
 $s->display('inventario.tpl');
-

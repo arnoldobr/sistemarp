@@ -219,19 +219,76 @@ function bd_tasas_datos($n=10) {
 
 function bd_tasas_agregar($monto) {
     if ($monto > 0) {
-
-    $sql = "
-        INSERT INTO
-            tasas (id,tasa,f_tasa)
-        VALUES (NULL, '$monto', current_timestamp());
-    ";
-    return sql($sql);
+        $sql = "
+            INSERT INTO
+                tasas (id,tasa,f_tasa, usuario_id)
+            VALUES (NULL, '{$monto}', current_timestamp(), '{$_SESSION['usuario']['id']}');
+        ";
+        vq($sql);
+        return sql($sql);
     }
     else
     {
         return -1;
     }
 }
+
+function bd_productos_datos($categoria_id = NULL) {
+    if ($categoria_id != NULL) {
+        $where = "AND categoria_id LIKE '{$categoria_id}'";
+    }else{
+        $where = '';
+    }
+
+    $sql = "
+        SELECT
+            a.id, a.nombre, a.unidad, a.categoria_id, a.p_compra, a.p_venta, a.existencia, a.minimo, a.detalle,
+            b.nombre categoria
+        FROM
+            productos a, categorias b
+        WHERE 1
+        AND a.categoria_id = b.id
+        {$where}
+    ";
+    return sql2array($sql);
+}
+
+
+function bd_categorias_datos() {
+    $sql = "SELECT id, nombre FROM categorias ORDER BY nombre ASC";
+    return sql2array($sql);
+}
+
+
+
+function bd_productos_unidades() {
+    return sql2array("SELECT DISTINCT unidad FROM productos ORDER BY unidad ASC;");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
