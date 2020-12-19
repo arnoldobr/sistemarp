@@ -26,7 +26,7 @@ Los parametros son:
 *Regex: Si el parametro tipo es una E.R, entonces este campo
 debe tener el valor R2_REGEX
 */
-function limpiar_texto($texto,$tipo,$regex=NULL)
+function limpiar_texto($texto,$tipo,$regex=null)
 {
     $exprs = [
         "email"=>"[a-zA-Z\d._%\+\-]+@[A-Za-z\d.\-]+\.[A-Za-z]{2,64}",
@@ -115,7 +115,7 @@ function sql2value($sql) {
         return '';
     }
     $p=$res->fetch_array(MYSQLI_NUM);
-    if ($p!=NULL) {
+    if ($p!=null) {
         return $p[0];
     } else {
         return '';
@@ -186,7 +186,7 @@ function bd_notas_sin_vencer(){
     $sql = "
         SELECT id, texto, f_creado
         FROM notas
-        WHERE f_cancelado IS NULL
+        WHERE f_cancelado IS null
         ORDER BY f_creado DESC;
     ";
     return sql2array($sql);
@@ -222,7 +222,7 @@ function bd_tasas_agregar($monto) {
         $sql = "
             INSERT INTO
                 tasas (id,tasa,f_tasa, usuario_id)
-            VALUES (NULL, '{$monto}', current_timestamp(), '{$_SESSION['usuario']['id']}');
+            VALUES (null, '{$monto}', current_timestamp(), '{$_SESSION['usuario']['id']}');
         ";
         vq($sql);
         return sql($sql);
@@ -233,9 +233,15 @@ function bd_tasas_agregar($monto) {
     }
 }
 
-function bd_productos_datos($categoria_id = NULL) {
-    if ($categoria_id != NULL) {
-        $where = "AND categoria_id LIKE '{$categoria_id}'";
+function bd_productos_datos($texto = null, $categoria_id = null) {
+    if ($texto != null) {
+        $where = "AND a.nombre LIKE '%{$texto}%'";
+    }else{
+        $where = '';
+    }
+
+    if ($categoria_id != null) {
+        $where = "AND a.categoria_id LIKE '{$categoria_id}'";
     }else{
         $where = '';
     }

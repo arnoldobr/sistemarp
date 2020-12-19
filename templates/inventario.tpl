@@ -7,14 +7,14 @@
 	<main>
 		<div class="container">
 			<form class="form" name="f_buscar_producto" id="f_buscar_producto"
-				action="" method="get" accept-charset="utf-8">
+				action="inventario.php" method="post" accept-charset="utf-8">
 				<div class="row">
 					<div class="col-sm-6 mb-2">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">{"cubes"|fa}</span>
 							</div>
-							<select class="form-control" name="filtro" style="text-align: center;text-align-last: center; ">
+							<select class="form-control" name="categoria" style="text-align: center;text-align-last: center; ">
 								<option value="Todos" class="">Categoría: Todos</option>
 								{section name=j loop=$categ}<option value="{$categ[j].id}" class="">{$categ[j].nombre}</option>{/section}
 							</select>
