@@ -233,30 +233,34 @@ function bd_tasas_agregar($monto) {
     }
 }
 
-function bd_productos_datos($texto = null, $categoria_id = null) {
-    if ($texto != null) {
-        $where = "AND a.nombre LIKE '%{$texto}%'";
-    }else{
-        $where = '';
-    }
+/**
+ * Devuelve los datos de los productos solicitados
+ * @param  int    $categoria_id Si no es 0 ni null se
+ *                              filtra por el id de la categoría
+ * @param  string $texto        Nombre o parte del nombre a buscar
+ * @return array                Datos que coinciden con el filtro
+ */
+function bd_productos_datos($categoria_id = null, $texto = null ) {
+  $where = '';
+  if ($categoria_id != null && $categoria_id > 0) {
+    $where = "AND a.categoria_id LIKE '{$categoria_id}'";
+  }
+  if ($texto != null) {
+    $where = "AND a.nombre LIKE '%{$texto}%'";
+  }
 
-    if ($categoria_id != null) {
-        $where = "AND a.categoria_id LIKE '{$categoria_id}'";
-    }else{
-        $where = '';
-    }
-
-    $sql = "
-        SELECT
-            a.id, a.nombre, a.unidad, a.categoria_id, a.p_compra, a.p_venta, a.existencia, a.minimo, a.detalle,
-            b.nombre categoria
-        FROM
-            productos a, categorias b
-        WHERE 1
-        AND a.categoria_id = b.id
-        {$where}
-    ";
-    return sql2array($sql);
+  $sql = "
+    SELECT
+      a.id, a.nombre, a.unidad, a.categoria_id,
+      a.p_compra, a.p_venta, a.existencia,
+      a.minimo, a.detalle, b.nombre categoria
+    FROM
+      productos a, categorias b
+    WHERE 1
+    {$where}
+    AND a.categoria_id = b.id
+  ";
+  return sql2array($sql);
 }
 
 

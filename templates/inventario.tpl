@@ -15,8 +15,8 @@
 								<span class="input-group-text">{"cubes"|fa}</span>
 							</div>
 							<select class="form-control" name="categoria" style="text-align: center;text-align-last: center; ">
-								<option value="Todos" class="">Categoría: Todos</option>
-								{section name=j loop=$categ}<option value="{$categ[j].id}" class="">{$categ[j].nombre}</option>{/section}
+								<option value="0" class="">Categoría: Todos</option>
+								{section name=j loop=$categ}<option value="{$categ[j].id}" class="" {if $categ[j].id==$categ_sel}selected{/if}>{$categ[j].nombre}</option>{/section}
 							</select>
 						</div>
 
