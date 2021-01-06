@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '41c06cb31a52ff936706b90ff676b04960e6ddc9',
+    'reference' => '67a4e844d970a6893c6bf44d7d123db95980fe14',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '41c06cb31a52ff936706b90ff676b04960e6ddc9',
+      'reference' => '67a4e844d970a6893c6bf44d7d123db95980fe14',
     ),
     'components/font-awesome' => 
     array (
@@ -50,6 +50,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'b33e8f0f9a1cb2ae390cf05d766a900b53d2125b',
+    ),
+    'datatables/datatables' => 
+    array (
+      'pretty_version' => '1.10.21',
+      'version' => '1.10.21.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '83e59694a105225ff889ddfa0d723a3ab24fda78',
     ),
     'kint-php/kint' => 
     array (

@@ -1,4 +1,7 @@
 ;<?php die()?>
+nombre = "Vir@l Shop"
+
+
 [sesion]
 nombre = euldlmdcnnqa
 

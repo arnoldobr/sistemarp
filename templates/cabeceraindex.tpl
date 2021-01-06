@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="Sistema RP">
+		<meta name="description" content="{$nombre}">
 		<meta name="author" content="Arnoldo Bric">
 		<!-- Favicons -->
 		<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -18,4 +18,4 @@
 		<!-- Bootstrap core CSS -->
 		<link href="./libs/twbs/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="./libs/font-awesome/css/all.css">
-		<title>Sistema RP</title>
+		<title>{$nombre}</title>

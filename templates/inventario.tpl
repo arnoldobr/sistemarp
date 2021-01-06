@@ -9,18 +9,6 @@
 			<form class="form" name="f_buscar_producto" id="f_buscar_producto"
 				action="inventario.php" method="post" accept-charset="utf-8">
 				<div class="row">
-					<div class="col-sm-6 mb-2">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">{"cubes"|fa}</span>
-							</div>
-							<select class="form-control" name="categoria" style="text-align: center;text-align-last: center; ">
-								<option value="0" class="">Categoría: Todos</option>
-								{section name=j loop=$categ}<option value="{$categ[j].id}" class="" {if $categ[j].id==$categ_sel}selected{/if}>{$categ[j].nombre}</option>{/section}
-							</select>
-						</div>
-
-					</div>
 					<div class="col-sm-6">
 						<div class="input-group">
 							<input type="text" class="form-control" name="texto" placeholder="Texto a buscar...">

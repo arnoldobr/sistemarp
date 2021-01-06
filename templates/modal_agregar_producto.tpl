@@ -1,5 +1,5 @@
 {* Smarty *}
-<form>
+<form action="modal_agregar_producto_proc.php" method="post" accept-charset="utf-8">
 	<div class="form-group mb-0">
 		<div class="form-row">
 			<div class="col-md-4 mb-3">
@@ -45,7 +45,7 @@
 						{section name=j loop=$categorias}<option value="{$categorias[j].nombre}">{$categorias[j].nombre}</option>{/section}
 					</datalist>
 				</div>
-				<span id="categoria_idHelpBlock" class="form-text text-muted">Seleccione o escriba...</span>
+				<span id="categoria_idHelpBlock" class="form-text text-muted small">Seleccione o escriba...</span>
 			</div>
 		</div>
 	</div>

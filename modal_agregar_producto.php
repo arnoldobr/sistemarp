@@ -6,6 +6,4 @@ verifica_nivel(['ADMIN', 'USUARIO']);
 $s->assign('unidades', bd_productos_unidades() );
 $s->assign('categorias', bd_categorias_datos() );
 
-v([bd_productos_unidades(),bd_categorias_datos()]);
-
 $s->display('modal_agregar_producto.tpl');

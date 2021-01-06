@@ -235,30 +235,30 @@ function bd_tasas_agregar($monto) {
 
 /**
  * Devuelve los datos de los productos solicitados
- * @param  int    $categoria_id Si no es 0 ni null se
- *                              filtra por el id de la categoría
  * @param  string $texto        Nombre o parte del nombre a buscar
  * @return array                Datos que coinciden con el filtro
  */
-function bd_productos_datos($categoria_id = null, $texto = null ) {
+function bd_productos_datos( $texto = null ) {
   $where = '';
-  if ($categoria_id != null && $categoria_id > 0) {
-    $where = "AND a.categoria_id LIKE '{$categoria_id}'";
-  }
   if ($texto != null) {
-    $where = "AND a.nombre LIKE '%{$texto}%'";
+    $where = "AND (
+            nombre LIKE '%{$texto}%'
+        OR id LIKE '%{$texto}%'
+        OR p_venta LIKE '%{$texto}%'
+        OR categoria LIKE '%{$texto}%'
+        )
+    ";
   }
 
   $sql = "
     SELECT
-      a.id, a.nombre, a.unidad, a.categoria_id,
-      a.p_compra, a.p_venta, a.existencia,
-      a.minimo, a.detalle, b.nombre categoria
+      id, nombre, unidad, categoria,
+      p_compra, p_venta, existencia,
+      minimo, detalle
     FROM
-      productos a, categorias b
+      productos
     WHERE 1
     {$where}
-    AND a.categoria_id = b.id
   ";
   return sql2array($sql);
 }
@@ -269,13 +269,37 @@ function bd_categorias_datos() {
     return sql2array($sql);
 }
 
-
-
 function bd_productos_unidades() {
     return sql2array("SELECT DISTINCT unidad FROM productos ORDER BY unidad ASC;");
 }
 
-
+function bd_productos_agregar($d){
+    $sql = "
+        INSERT INTO productos (
+            id,
+            nombre,
+            unidad,
+            categoria_id,
+            p_compra,
+            p_venta,
+            existencia,
+            minimo,
+            detalle
+            ) VALUES (
+            '{$d['id']}',
+            '{$d['nombre']}',
+            '{$d['unidad']}',
+            ${d['categoria_id']},
+            ${d['p_compra']},
+            ${d['p_venta']},
+            ${d['existencia']},
+            ${d['minimo']},
+            '{$d['detalle']}'
+        );
+    ";
+    vq($sql);
+    return sql($sql);
+}
 
 
 
