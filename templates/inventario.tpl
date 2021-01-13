@@ -6,14 +6,8 @@
 	<div class="bg-secondary text-white text-center mb-2">Inventario</div>
 	<main>
 		<div class="container">
-			<form class="form" name="f_buscar_producto" id="f_buscar_producto"
-				action="inventario.php" method="post" accept-charset="utf-8">
-				<div class="row">
-					<div class="col collapse" id="f-agregar"></div>
-				</div>
-			</form>
 			<div class="row">
-				<div class="col d-none d-sm-none d-md-block">{* En caso de ser escritorio *}
+				<div class="col">{* En caso de ser escritorio *}
 					<table class="table table-striped table-borderless" id="datatable1">
 						<thead>
 							<tr>
@@ -36,20 +30,8 @@
 							</tr>
 						</tfoot>
 					</table>
+				<div id="datamovil1" class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 				</div>
-				<div class="col d-block d-sm-block d-md-none">{* En caso de ser celular *}
-					{section name=ii loop=$d}
-					<div class="card mt-3">
-						<div class="card-header">
-							<small>{$d[ii].id}</small> <strong>{$d[ii].nombre} ({$d[ii].unidad})</strong>
-						</div>
-						<div class="card-body">
-								Existencia <strong>{$d[ii].existencia} / {$d[ii].minimo}</strong>
-
-							<p class="text-right mb-0">	P.V.($): {$d[ii].p_venta}</p>
-						</div>
-					</div>
-					{/section}
 				</div>
 			</div>
 		<a id="btn-modal1" class="flotante" title="Agregar Producto">
@@ -79,13 +61,29 @@
 			"serverSide":true,
 			"ajax":"libs/datatables/php/ajax_inventario.php",
 			"language": {
-				"show" : "Mostrar",
-				"search" : "Buscar",
-				"b" : "",
-				"c" : "",
-				"d" : "",
-				"e" : "",
-				"f" : ""
+				"url":"libs/datatables/php/datatable.es.json"
+			},
+			"initComplete":function (settings,json) {
+				$("#datamovil1").insertBefore('#datatable1');
+				$("#datamovil1").show();
+			},
+			"rowCallback": function (row,data) {
+				fila=`<div class="card">
+						<div class="card-header">
+							<small>${data[0]}</small> <strong>${data[1]} (${data[2]})</strong>
+						</div>
+						<div class="card-body">
+								Existencia <strong>${data[3]} / ${data[5]}</strong>
+
+							<p class="text-right mb-0">	P.V.($): ${data[4]}</p>
+						</div>
+					</div>`;
+				
+				$('#datamovil1').append(fila); 
+			},
+			"preDrawCallback":function (settings) {
+			$("#datamovil1").empty();
+			$("#datatable1").empty();
 			}
 		});
 	});

@@ -68,3 +68,9 @@ option {
   bottom: calc(10px + var(--footerh));
   right: 2px;
 }
+
+/*Datatables*/
+
+.dataTables_filter input{
+  width: 300px!important;
+}
