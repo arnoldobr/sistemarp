@@ -9,24 +9,12 @@
 			<form class="form" name="f_buscar_producto" id="f_buscar_producto"
 				action="inventario.php" method="post" accept-charset="utf-8">
 				<div class="row">
-					<div class="col-sm-6">
-						<div class="input-group">
-							<input type="text" class="form-control" name="texto" placeholder="Texto a buscar...">
-							<div class="input-group-append">
-								<button type="submit" class="btn btn-success" >
-								<span>{"search"|fa}</span>
-								<span class="d-none d-md-none d-lg-inline"> Buscar </span></button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
 					<div class="col collapse" id="f-agregar"></div>
 				</div>
 			</form>
 			<div class="row">
 				<div class="col d-none d-sm-none d-md-block">{* En caso de ser escritorio *}
-					<table class="table table-striped table-borderless">
+					<table class="table table-striped table-borderless" id="datatable1">
 						<thead>
 							<tr>
 								<th>Cód.</th>
@@ -37,18 +25,16 @@
 								<th><span class="text-primary">{"exclamation-triangle"|fa}</span></th>
 							</tr>
 						</thead>
-						<tbody>
-							{section name=i loop=$d}
+						<tfoot>
 							<tr>
-								<td>{$d[i].id}</td>
-								<td>{$d[i].nombre}</td>
-								<td>{$d[i].unidad}</td>
-								<td>{$d[i].existencia}</td>
-								<td>{$d[i].p_venta}</td>
-								<td>{$d[i].minimo}</td>
+								<th>Cód.</th>
+								<th>Nombre</th>
+								<th>Und.</th>
+								<th>Exist.</th>
+								<th>P.V. ($)</th>
+								<th><span class="text-primary">{"exclamation-triangle"|fa}</span></th>
 							</tr>
-							{/section}
-						</tbody>
+						</tfoot>
 					</table>
 				</div>
 				<div class="col d-block d-sm-block d-md-none">{* En caso de ser celular *}
@@ -85,6 +71,22 @@
 	$('#btn-modal1').on('click', function(){
 		$('#body-modal1').load('modal_agregar_producto.php', function(){
 			$('#modal1').modal('show');
+		});
+	});
+	$(function() {
+		$('#datatable1').DataTable({
+			"processing":true,
+			"serverSide":true,
+			"ajax":"libs/datatables/php/ajax_inventario.php",
+			"language": {
+				"show" : "Mostrar",
+				"search" : "Buscar",
+				"b" : "",
+				"c" : "",
+				"d" : "",
+				"e" : "",
+				"f" : ""
+			}
 		});
 	});
 </script>
