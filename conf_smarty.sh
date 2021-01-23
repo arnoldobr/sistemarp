@@ -1,5 +1,5 @@
 #!/bin/bash
 
-chmod 777 cache
-chmod 777 templates_c
-
+rm -rf ./cache
+rm -rf ./templates_c
+mkdir -p -m 777 cache templates_c
